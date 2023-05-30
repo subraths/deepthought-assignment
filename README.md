@@ -8,5 +8,5 @@
 
 The below Object Data Model of an Event
 
-* **id*** (integer): unique integer value.
+* **id** (integer): unique integer value.
 * item
