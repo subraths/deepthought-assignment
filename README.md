@@ -70,11 +70,11 @@ Creates a new user
 * Endpoint: **`/register`**
 * content-type: **`application/json`**
 * query parameters: 
-    type: `latest`gives sorted events based on their created dates, new to old
-    id: `id`, provides single event matching the id provided
-    page: `number value`, by default gives page 1
-    limit: `number value`, default value is 5(limit the results per page)
-    default: provides sorted events based on their created dates, old to new
+    **type**: `latest`gives sorted events based on their created dates, new to old
+    **id**: `id`, provides single event matching the id provided
+    **page**: `number value`, by default gives page 1
+    **limit**: `number value`, default value is 5(limit the results per page)
+    **default**: provides sorted events based on their created dates, old to new
 
 ### 4. **Create Event**
 
