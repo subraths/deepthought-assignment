@@ -40,7 +40,7 @@ Creates a new user
 * Endpoint: **`/register`**
 * content-type: **`application/json`**
 * payload: 
-```json
+```
 {
     'username': <unique username(must be unique)>,
     'name': <fullname of the user>,
