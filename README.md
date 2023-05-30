@@ -42,9 +42,9 @@ Creates a new user
 * payload: 
 ```
 {
-    'username': <username(must be unique)>,
+    'username': <username>(unique),
     'name': <fullname>,
-    'email': <email(must be unique)>,
+    'email': <email>(unique),
     'password': <password(minimum 6 characters)>
 }
 ```
