@@ -16,7 +16,7 @@
 * **moderator** (String): take name of the moderator.
 * **category** (String): category name.
 * **subcategory** (String): subcategory name.
-* **rigor_rank** (String): takes interger value from 1 to 10.
+* **rigor_rank** (Number): takes interger value from 1 to 10.
 * **attendees** (String): takes a list of attendees name seperated by ",".
 
 ## Object Data Model of an User
@@ -27,3 +27,14 @@
 * **name** (String): takes full name of an  user
                          minlength: 3 characters,
                          maxlength: 20
+* **email** (String): email address
+* **password** (String): take password and hashes it and store it in database
+
+## API Endpoints
+
+### 1. **Register User**
+    Creates a new user
+
+**Request**
+* Method: **`POST`**
+* Endpoint: **`/register`**
