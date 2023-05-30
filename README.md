@@ -38,3 +38,11 @@ Creates a new user
 **Request**
 * Method: **`POST`**
 * Endpoint: **`/register`**
+* content-type: **`application/json`**
+* payload: 
+    {
+        "username": <unique username(must be unique)>,
+        "name": <fullname of the user>,
+        "email": <user email(must be unique)>,
+        "password": <password(minimum 6 characters)>
+    }
