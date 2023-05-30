@@ -68,8 +68,8 @@ Creates a new user
 ### 3. **Get Event**
 
 **Request**
-* Method: **`POST`**
-* Endpoint: **`/register`**
+* Method: **`GET`**
+* Endpoint: **`/events`**
 * content-type: **`application/json`**
 * query parameters: 
     **type**: `latest`gives sorted events based on their created dates, new to old
