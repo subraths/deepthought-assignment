@@ -8,6 +8,7 @@ import errorHandler from "./middleware/errorhandler";
 
 import eventsRouter from "./routes/events";
 import authRouter from "./routes/auth";
+import authentication from "./middleware/authentication";
 
 dotenv.config();
 
@@ -20,7 +21,7 @@ app.use(express.json());
 app.use(fileUpload());
 
 app.use("/api/v3/app", authRouter);
-app.use("/api/v3/app/events", eventsRouter);
+app.use("/api/v3/app/events", authentication, eventsRouter);
 
 app.use(errorHandler);
 app.use(notFound);

@@ -23,6 +23,5 @@ export default function errorHandler(
     error.message = `Duplicate value entered for ${err.keyValue} field, please enter another value`;
   }
 
-  console.log(err);
   res.status(error.statusCode).json({ message: error.message });
 }

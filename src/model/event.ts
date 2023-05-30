@@ -14,10 +14,17 @@ const Event = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: "User",
     required: [true, "please provide an user"],
+    immutable: true,
   },
   name: {
     type: String,
     required: [true, "must provide event name"],
+    minLength: 3,
+    maxLength: 50,
+  },
+  tagline: {
+    type: String,
+    required: [true, "must provide event tagline"],
     minLength: 3,
     maxLength: 50,
   },
@@ -39,19 +46,33 @@ const Event = new mongoose.Schema({
   },
 
   //TODO: correct category
+  // category: {
+  //   type: mongoose.Types.ObjectId,
+  //   ref: "Category",
+  //   required: [true, "must provide a category for the event"],
+  // },
+  // subcategory: {
+  //   type: mongoose.Types.ObjectId,
+  //   ref: "SubCategory",
+  // },
   category: {
-    type: mongoose.Types.ObjectId,
-    ref: "Category",
-    required: [true, "must provide a category for the event"],
+    type: String,
+    required: [true, "please provide category name"],
+    minLength: 3,
+    maxLength: 15,
   },
+
   subcategory: {
-    type: mongoose.Types.ObjectId,
-    ref: "SubCategory",
+    type: String,
+    minLength: 3,
+    maxLength: 15,
   },
+
   rigor_rank: {
     type: Number,
     min: [1, "rank too less"],
     max: [10, "rank too high"],
+    required: [true, "rigor_rank cannot be empty"],
     default: 1,
   },
   attendees: ["User"],
