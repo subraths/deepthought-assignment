@@ -9,7 +9,6 @@ import Unauthenticated from "../errors/unauthenticated";
 import mongoose from "mongoose";
 import Event from "../model/event";
 import NotFound from "../errors/not-found";
-import event from "../model/event";
 
 export const getEvents = asyncWrapper(async (req: Request, res: Response) => {
   const userId = req.user?.userId;
@@ -19,7 +18,42 @@ export const getEvents = asyncWrapper(async (req: Request, res: Response) => {
     throw new Unauthenticated("user not found, please register or login");
   }
 
-  const events = await Event.find();
+  // if (req.query.id) {
+  //   const event = await Event.findById(req.query.id);
+  //   if (!event) {
+  //     return res
+  //       .status(StatusCodes.NOT_FOUND)
+  //       .json({ message: `event with eventId ${req.query.id} not found` });
+  //   }
+  //   return res.status(StatusCodes.OK).json(event);
+  // }
+
+  const queryObject: any = {};
+
+  const { id, type, limit, page } = req.query;
+
+  if (id) {
+    queryObject._id = id;
+  }
+
+  let query = Event.find(queryObject);
+
+  if (type) {
+    if (type === "latest") {
+      query = query.sort("-createdAt");
+    }
+  }
+
+  query = query.sort("createdAt").select("name");
+
+  const pageValue: number = Number(page) || 1;
+  const limitValue: number = Number(limit) || 5;
+
+  const skip = (pageValue - 1) * limitValue;
+
+  query = query.skip(skip).limit(limitValue);
+
+  const events = await Event.find(query);
 
   res.status(StatusCodes.OK).json(events);
 });
@@ -77,6 +111,8 @@ export const createEvent = asyncWrapper(async (req: Request, res: Response) => {
 export const updateEvent = asyncWrapper(async (req: Request, res: Response) => {
   const eventId = req.params.id;
 
+  console.log(eventId);
+
   const {
     name,
     tagline,
@@ -100,11 +136,13 @@ export const updateEvent = asyncWrapper(async (req: Request, res: Response) => {
 
   const imageFile: UploadedFile | undefined = req.files?.image as UploadedFile;
 
-  const imagePath = path.join(__dirname, "../../images/" + `${imageFile.name}`);
-
-  await imageFile.mv(imagePath);
-
   if (imageFile) {
+    const imagePath = path.join(
+      __dirname,
+      "../../images/" + `${imageFile.name}`
+    );
+    await imageFile.mv(imagePath);
+
     updatedEventObject.image = imageFile.name;
   }
 
