@@ -33,7 +33,7 @@
 ## API Endpoints
 
 ### 1. **Register User**
-    Creates a new user
+Creates a new user
 
 **Request**
 * Method: **`POST`**
