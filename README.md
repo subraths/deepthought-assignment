@@ -45,6 +45,6 @@ Creates a new user
     'username': <username>(unique),
     'name': <fullname>,
     'email': <email>(unique),
-    'password': <password(minimum 6 characters)>
+    'password': <password>(minimum 6 characters)
 }
 ```
