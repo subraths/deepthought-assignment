@@ -1,4 +1,4 @@
-### Backend developer assignment task for DeepThooughts
+### Backend developer assignment task for DeepThoughts
 
 # Api documentation
 
