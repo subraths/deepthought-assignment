@@ -18,16 +18,6 @@ export const getEvents = asyncWrapper(async (req: Request, res: Response) => {
     throw new Unauthenticated("user not found, please register or login");
   }
 
-  // if (req.query.id) {
-  //   const event = await Event.findById(req.query.id);
-  //   if (!event) {
-  //     return res
-  //       .status(StatusCodes.NOT_FOUND)
-  //       .json({ message: `event with eventId ${req.query.id} not found` });
-  //   }
-  //   return res.status(StatusCodes.OK).json(event);
-  // }
-
   const queryObject: any = {};
 
   const { id, type, limit, page } = req.query;
@@ -38,13 +28,11 @@ export const getEvents = asyncWrapper(async (req: Request, res: Response) => {
 
   let query = Event.find(queryObject);
 
-  if (type) {
-    if (type === "latest") {
-      query = query.sort("-createdAt");
-    }
+  if (type === "latest") {
+    query = query.sort("-createdAt");
+  } else {
+    query = query.sort("createdAt");
   }
-
-  query = query.sort("createdAt").select("name");
 
   const pageValue: number = Number(page) || 1;
   const limitValue: number = Number(limit) || 5;
@@ -90,17 +78,28 @@ export const createEvent = asyncWrapper(async (req: Request, res: Response) => {
 
   await imageFile.mv(imagePath);
 
+  const {
+    name,
+    tagline,
+    schedule,
+    description,
+    moderator,
+    category,
+    subcategory,
+    attendees,
+  } = req.body;
+
   const eventObject: eventObjectType = {
     uid: user._id,
-    name: req.body.name,
-    tagline: req.body.tagline,
-    schedule: req.body.schedule,
-    description: req.body.description,
+    name,
+    tagline,
+    schedule,
+    description,
     image: imageFile.name,
-    moderator: req.body.moderator,
-    category: req.body.category,
-    subcategory: req.body?.subcategory,
-    attendees: req.body.attendees.split(","),
+    moderator,
+    category,
+    subcategory,
+    attendees: attendees.split(","),
   };
 
   const event = await Event.create(eventObject);
@@ -191,6 +190,13 @@ export const updateEvent = asyncWrapper(async (req: Request, res: Response) => {
 });
 
 export const deleteEvent = asyncWrapper(async (req: Request, res: Response) => {
+  const userId = req.user?.userId;
+
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new Unauthenticated("user not found, please register or login");
+  }
+
   const eventId = req.params.id;
 
   const deletedEvent = await Event.findByIdAndDelete(eventId);

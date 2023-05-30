@@ -48,3 +48,75 @@ Creates a new user
     'password': <password>(minimum 6 characters)
 }
 ```
+
+### 2. **Login User**
+
+**Request**
+* Method: **`POST`**
+* Endpoint: **`/login`**
+* content-type: **`application/json`**
+* payload: 
+```
+{
+    'username': <username>,
+    'password': <password>
+}
+```
+
+### 3. **Get Event**
+
+**Request**
+* Method: **`POST`**
+* Endpoint: **`/register`**
+* content-type: **`application/json`**
+* query parameters: 
+    type: `latest`gives sorted events based on their created dates, new to old
+    id: `id`, provides single event matching the id provided
+    page: `number value`, by default gives page 1
+    limit: `number value`, default value is 5(limit the results per page)
+    default: provides sorted events based on their created dates, old to new
+
+### 4. **Create Event**
+
+**Request**
+* Method: **`POST`**
+* Endpoint: **`/events`**
+* content-type: **`application/json`**
+* payload: 
+```
+{
+    name: String,
+    tagline: String,
+    schedule: Date + Time,
+    description: String,
+    moderator: String,
+    category: String,
+    subcategory: String,
+    attendees: String,
+}
+```
+
+### 5. **Update Event**
+
+**Request**
+* Method: **`PUT`**
+* Endpoint: **`/events/:id`**
+* content-type: **`application/json`**
+* payload: 
+```
+{
+    name: String,
+    tagline: String,
+    schedule: Date + Time,
+    description: String,
+    moderator: String,
+    category: String,
+    subcategory: String,
+    attendees: String,
+}
+```
+### 6. **Delete Event**
+
+**Request**
+* Method: **`DELETE`**
+* Endpoint: **`/events/:id`**
